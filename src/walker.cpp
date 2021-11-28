@@ -25,7 +25,7 @@
 /**
  * @file publisher.cpp
  * @author Abhishek Nalawade
- * @brief walker header file
+ * @brief walker file
  * @version 0.1
  * @date 2021-11-27
  *
@@ -33,3 +33,32 @@
  */
 
 #include"../include/walker.hpp"
+
+/**
+ * @brief Construct a new MoveTurtlebot object
+ */
+MoveTurtlebot::MoveTurtlebot(int argc1, char **argv1) {
+  velocity.linear.x = 0.1;
+  velocity.linear.y = 0.0;
+  velocity.linear.z = 0.0;
+  std::cout << "initialized\n";
+}
+
+/**
+ * @brief Destroy the MoveTurtlebot object
+ */
+MoveTurtlebot::~MoveTurtlebot() {
+  std::cout << "Destructed\n";
+}
+
+
+void MoveTurtlebot::publish(int argc, char **argv) {
+  std::cout << "once\n";
+  ros::Rate loop_rate(10);
+  velocity_chatter = n.advertise<geometry_msgs::Twist>("/cmd_vel", 1000);
+  while (ros::ok()) {
+    velocity_chatter.publish(velocity);
+    ros::spinOnce;
+    loop_rate.sleep();
+  }
+}

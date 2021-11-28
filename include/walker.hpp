@@ -33,7 +33,21 @@
  */
 #pragma once
 
-#include<iostream>
 #include <ros/ros.h>
 #include <sensor_msgs/LaserScan.h>
 #include <geometry_msgs/Twist.h>
+#include<iostream>
+
+
+class MoveTurtlebot{
+ public:
+  MoveTurtlebot(int argc1, char **argv1);
+  void publish(int argc, char **argv);
+  ~MoveTurtlebot();
+ private:
+  int argc;
+  int **argv;
+  ros::NodeHandle n;
+  ros::Publisher velocity_chatter;
+  geometry_msgs::Twist velocity;
+};

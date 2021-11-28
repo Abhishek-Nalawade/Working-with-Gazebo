@@ -1,0 +1,27 @@
+<launch>
+	<arg name = "arg1" default = "1"/>
+	<arg name = "bagRecord" default = "false"/>
+
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+	</include>
+
+	<node pkg = "gazebo_tutorial"
+		type = "publisher"
+		name = "speaker"
+		args = "$(arg arg1)"
+		output = "screen"/>
+
+
+	 <node 
+		pkg = "rosbag"
+		type = "record"
+		name = "rosbag_rec"
+		args = "record --duration=15 -a -O $(find gazebo_tutorial)/results/bag"
+		if = "$(arg bagRecord)"
+	   />
+
+
+
+
+
+</launch>

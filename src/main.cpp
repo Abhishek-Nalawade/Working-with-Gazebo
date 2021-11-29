@@ -34,8 +34,7 @@
 #include"../include/walker.hpp"
 
 int main(int argc, char **argv) {
-  std::cout << "hi\n";
   ros::init(argc, argv, "talker");
-  MoveTurtlebot bot(argc, argv);
+  MoveTurtlebot bot;
   bot.publish(argc, argv);
 }

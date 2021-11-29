@@ -34,14 +34,55 @@
 
 #include"../include/walker.hpp"
 
-/**
- * @brief Construct a new MoveTurtlebot object
- */
-MoveTurtlebot::MoveTurtlebot(int argc1, char **argv1) {
+// /**
+//  * @brief Construct a new MoveTurtlebot object
+//  */
+MoveTurtlebot::MoveTurtlebot() {
+  object = 0;
   velocity.linear.x = 0.1;
   velocity.linear.y = 0.0;
   velocity.linear.z = 0.0;
   std::cout << "initialized\n";
+}
+
+void MoveTurtlebot::detectObstacle(
+                           const sensor_msgs::LaserScan::ConstPtr& obj) {
+  int i = 0;
+  // Looking for obstacle
+  std::cout << "from here\n";
+  while (i < obj->ranges.size()) {
+    if (obj->ranges[i] < 0.8) {
+      object = 1;
+      return;
+    }
+    i++;
+  }
+  object = 0;
+}
+
+
+void MoveTurtlebot::publish(int argc, char **argv) {
+  std::cout << "once\n";
+  ros::Rate loop_rate(10);
+
+  velocity_chatter = n.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
+
+  distance = n.subscribe<sensor_msgs::LaserScan> ("/scan", 10,
+        &MoveTurtlebot::detectObstacle, this);
+
+  while (ros::ok()) {
+    // std::cout << "obstacle " << obstacle << "\n";
+    if (object) {
+      ROS_INFO_STREAM("object detected!");
+      std::cout << "obs detected \n";
+      velocity.linear.x = 0.0;
+      velocity.linear.y = 0.0;
+      velocity.linear.z = 0.0;
+    }
+    velocity_chatter.publish(velocity);
+    ros::spinOnce();
+    loop_rate.sleep();
+  }
 }
 
 /**
@@ -49,21 +90,4 @@ MoveTurtlebot::MoveTurtlebot(int argc1, char **argv1) {
  */
 MoveTurtlebot::~MoveTurtlebot() {
   std::cout << "Destructed\n";
-}
-
-
-detectObstacle
-
-
-void MoveTurtlebot::publish(int argc, char **argv) {
-  std::cout << "once\n";
-  ros::Rate loop_rate(10);
-  velocity_chatter = n.advertise<geometry_msgs::Twist>("/cmd_vel", 1000);
-  distance = nh.subscribe<sensor_msgs::LaserScan> ("/scan", 1000,
-      &MoveTurtlebot::detectObstacle, this);
-  while (ros::ok()) {
-    velocity_chatter.publish(velocity);
-    ros::spinOnce;
-    loop_rate.sleep();
-  }
 }

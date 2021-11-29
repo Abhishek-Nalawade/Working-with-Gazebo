@@ -10,9 +10,9 @@
 		args = "$(arg arg1)"
 		output = "screen"/>
 
-	<param name= "robot_description" command="$(find xacro)/xacro --inorder '$(find turtlebot3_description)/urdf/turtlebot3_burger.urdf.xacro'" />
+	<param name= "robot_description" command="$(find xacro)/xacro --inorder '$(find turtlebot3_description)/urdf/turtlebot3_waffle.urdf.xacro'" />
 
-	<node args="-urdf -param robot_description -model  turtlebot3_burger   " name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" output="screen"/>
+	<node args="-urdf -param robot_description -model  turtlebot3_waffle   " name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" output="screen"/>
 	
 	<node 
 		pkg = "rosbag"

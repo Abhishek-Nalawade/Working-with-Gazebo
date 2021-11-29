@@ -39,7 +39,7 @@
 //  */
 MoveTurtlebot::MoveTurtlebot() {
   object = 0;
-  velocity.linear.x = 0.1;
+  velocity.linear.x = 0.2;
   velocity.linear.y = 0.0;
   velocity.linear.z = 0.0;
   std::cout << "initialized\n";
@@ -51,7 +51,8 @@ void MoveTurtlebot::detectObstacle(
   // Looking for obstacle
   std::cout << "from here\n";
   while (i < obj->ranges.size()) {
-    if (obj->ranges[i] < 0.8) {
+    if (obj->ranges[0] <= 0.6 || obj->ranges[45] <= 0.6 ||
+                                    obj->ranges[315] <= 0.6) {
       object = 1;
       return;
     }
@@ -76,8 +77,12 @@ void MoveTurtlebot::publish(int argc, char **argv) {
       ROS_INFO_STREAM("object detected!");
       std::cout << "obs detected \n";
       velocity.linear.x = 0.0;
-      velocity.linear.y = 0.0;
-      velocity.linear.z = 0.0;
+      velocity.angular.z = 0.3;
+    } else {
+
+      ROS_INFO_STREAM("Going straight");
+      velocity.angular.z = 0.0;
+      velocity.linear.x = 0.2;
     }
     velocity_chatter.publish(velocity);
     ros::spinOnce();

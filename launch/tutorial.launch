@@ -2,8 +2,9 @@
 	<arg name = "arg1" default = "1"/>
 	<arg name = "bagRecord" default = "false"/>
 
-	<include file= "$(find gazebo_ros)/launch/empty_world.launch"/> 
-	
+	<include file= "$(find gazebo_ros)/launch/empty_world.launch"> 
+		<arg name="world_name" value="$(find gazebo_tutorial)/launch/turtlebot3_stage_1.world"/>
+	</include>
 	<node pkg = "gazebo_tutorial"
 		type = "main"
 		name = "speaker"

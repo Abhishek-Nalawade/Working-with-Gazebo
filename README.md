@@ -28,7 +28,7 @@ To generate a new rosbag file type
 
 ```roslaunch beginner_tutorials launcher.launch bagRecord:=true```
 
-A bag file will be saved in Results directory. To play the ROS bag file, terminate the talker and listener nodes, and type the following in a new terminal.
+A bag file will be saved in Results directory. To play the ROS bag file, type the following in a new terminal.
 
 cd cakin_ws/src/gazebo_tutorial/results
 rosbag play bag.bag

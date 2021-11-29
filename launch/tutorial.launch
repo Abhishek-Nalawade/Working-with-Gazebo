@@ -19,7 +19,7 @@
 		pkg = "rosbag"
 		type = "record"
 		name = "rosbag_rec"
-		args = "record --duration=15 -a -O $(find gazebo_tutorial)/results/bag"
+		args = "record -x '/camera(.*)' --duration=30 -a -O $(find gazebo_tutorial)/results/bag"
 		if = "$(arg bagRecord)"
 	   />
 

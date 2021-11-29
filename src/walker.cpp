@@ -52,10 +52,15 @@ MoveTurtlebot::~MoveTurtlebot() {
 }
 
 
+detectObstacle
+
+
 void MoveTurtlebot::publish(int argc, char **argv) {
   std::cout << "once\n";
   ros::Rate loop_rate(10);
   velocity_chatter = n.advertise<geometry_msgs::Twist>("/cmd_vel", 1000);
+  distance = nh.subscribe<sensor_msgs::LaserScan> ("/scan", 1000,
+      &MoveTurtlebot::detectObstacle, this);
   while (ros::ok()) {
     velocity_chatter.publish(velocity);
     ros::spinOnce;

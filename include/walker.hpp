@@ -49,5 +49,6 @@ class MoveTurtlebot{
   int **argv;
   ros::NodeHandle n;
   ros::Publisher velocity_chatter;
+  ros::Subscriber distance;
   geometry_msgs::Twist velocity;
 };

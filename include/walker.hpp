@@ -38,7 +38,11 @@
 #include<geometry_msgs/Twist.h>
 #include<iostream>
 
-
+/**
+ * @brief MoveTurtlebot class that contains methods to move the Turtlebot
+ * @param int object check for obstacles
+ * @param Twist velocity object to publish
+ */
 class MoveTurtlebot{
  public:
   MoveTurtlebot();

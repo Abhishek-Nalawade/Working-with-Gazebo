@@ -34,9 +34,9 @@
 
 #include"../include/walker.hpp"
 
-// /**
-//  * @brief Construct a new MoveTurtlebot object
-//  */
+/**
+ * @brief Construct a new MoveTurtlebot object
+ */
 MoveTurtlebot::MoveTurtlebot() {
   object = 0;
   velocity.linear.x = 0.2;
@@ -45,6 +45,10 @@ MoveTurtlebot::MoveTurtlebot() {
   std::cout << "initialized\n";
 }
 
+/**
+ * @brief Detects the obstacles using LaserScan
+ * @return void
+ */
 void MoveTurtlebot::detectObstacle(
                            const sensor_msgs::LaserScan::ConstPtr& obj) {
   int i = 0;
@@ -61,7 +65,12 @@ void MoveTurtlebot::detectObstacle(
   object = 0;
 }
 
-
+/**
+ * @brief Method to publish the velocities
+ * @param argc stores the number of parameters received from the command line
+ * @param argv stores the parameters
+ * @return void
+ */
 void MoveTurtlebot::publish(int argc, char **argv) {
   std::cout << "once\n";
   ros::Rate loop_rate(10);
@@ -79,7 +88,6 @@ void MoveTurtlebot::publish(int argc, char **argv) {
       velocity.linear.x = 0.0;
       velocity.angular.z = 0.3;
     } else {
-
       ROS_INFO_STREAM("Going straight");
       velocity.angular.z = 0.0;
       velocity.linear.x = 0.2;

@@ -26,7 +26,7 @@ The rosbag recording is disabled by default.
 
 To generate a new rosbag file type
 
-```roslaunch beginner_tutorials launcher.launch bagRecord:=true```
+```roslaunch beginner_tutorials tutorial.launch bagRecord:=true```
 
 A bag file will be saved in Results directory. To play the ROS bag file, type the following in a new terminal.
 
